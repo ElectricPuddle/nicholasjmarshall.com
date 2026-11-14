@@ -1,0 +1,1 @@
+This repository follows AGENTS.md and the project docs in the docs/ folder. Keep changes aligned with the brief, requirements, and content markers, avoid inventing facts, and preserve the placeholder and privacy rules while updating the static site.

@@ -1,0 +1,40 @@
+# Nicholas J. Marshall personal site
+
+This repo contains the static personal website for Nicholas J. Marshall. It is a simple, lightweight GitHub Pages site with HTML, CSS, and no JavaScript framework or build step.
+
+## Folder structure
+
+```text
+.
+├── about.html
+├── index.html
+├── journey.html
+├── css/
+│   └── styles.css
+├── js/
+│   └── .gitkeep
+├── assets/
+│   └── .gitkeep
+├── docs/
+│   ├── product-brief.md
+│   └── requirements.md
+├── .github/
+│   └── copilot-instructions.md
+├── .gitignore
+├── .nojekyll
+├── CHANGELOG.md
+├── CONTENT.md
+├── README.md
+├── AGENTS.md
+└── .github/skills/ (existing repo tooling, not edited by this task)
+```
+
+## Local preview
+
+Open `index.html` in a browser, or serve the repo locally with the Python built-in server from the project root and open the localhost address shown in the terminal.
+
+## Tests and deployment
+
+Tests will arrive in a later step for this project.
+
+Deployment is planned for GitHub Pages once the site content and docs are finalized.
