@@ -1,0 +1,102 @@
+# NicholasJMarshall.com: Product Brief and Requirements
+ 
+Status: v1 draft, 2026-11-13. Owner: Nicholas. Claude acts as PM/PO and writes prompts for Copilot (VS Code) and Cursor; Claude does not write the site code.
+ 
+## 1. Purpose and success test
+A personal professional site for recruiters and hiring managers. **Success test:** a first-time visitor can say who Nicholas is, what he does, and how to reach him within 30 seconds, and can go deeper with one click if interested.
+ 
+## 2. Goals and non-goals
+**Goals**
+- Make the important things instantly visible; less is more.
+- Present a technical product owner who delivers outcomes, with a long-term ambition to own a product at the scale of Outlook.
+- Cost $0 to run and be easy to update every day.
+**Non-goals (for now)**
+- No blog, contact form, comments, or user accounts.
+- No phone number or street address on the site.
+- No custom analytics dashboard at launch (planned as a later phase).
+## 3. Positioning line (working draft, to refine together)
+> Technical product owner who turns customer needs into shipped software, backed by a computer science degree and hands-on engineering experience.
+ 
+## 4. Information architecture and content inventory
+Navigation on every page: Home, About, Journey.
+ 
+**Home**
+- Name, positioning line
+- Primary call to action: **View Journey**
+- Secondary call to action: **Email me** (existing personal address, obfuscated against scrapers)
+- LinkedIn link
+- Everything above must be visible without scrolling on a phone.
+**About**
+- Photo (with alt text), short bio (placeholder text for now)
+- Education summary (Notre Dame, B.S. Computer Science, 2022)
+- Skills and awards: proposed here as a short list; to confirm
+- Link to the web resume PDF
+**Journey**
+- Short story intro (placeholder text for now)
+- Timeline, newest first. Entries drafted from the resume:
+  - Ernst & Young, Boston, Senior Technology Consultant, Sept 2022 to present
+  - Lydonia Technologies, Needham, Sales Engineering Intern, 2021
+  - University of Notre Dame, Notre Dame, IN, B.S. Computer Science, 2022
+- Each entry: organization, location, title, years, and 1 to 2 outcome-focused wins ("what value I delivered")
+## 5. Content rules
+- Wins are written as outcomes (value delivered), not task lists.
+- No phone number or address anywhere, including the PDF.
+- Client names and figures: check what EY allows before publishing; default to unnamed clients and rounded or relative outcomes.
+- Placeholder text is allowed during development, but must be flagged in the file and removed before launch.
+- Tone: warm but concise.
+## 6. Visual direction
+Professional, clean, not bright. Blue and gold with a Notre Dame vibe, kept subtle so the site does not look like a Notre Dame site: no Notre Dame logo, monogram, name or imagery.
+- **Navy is the main color** for headings, links and key elements. Notre Dame's published blue is `#0c2340`; secondary blues `#143865` and `#1c4f8f`; light blue tints `#edf2f9` and `#e1e8f2` for backgrounds.
+- **Gold is an accent only**: thin rules, underlines, markers, hover states. Notre Dame's published metallic gold is `#ae9142` (darker `#8c7535`, brighter `#d39f10`). By my rough calculation, `#ae9142` on white is about 3:1 contrast, below the 4.5:1 needed for body text, so gold is never used for body text. The automated accessibility scan will confirm contrast.
+- **Backgrounds:** white or warm white (`#f8f4ec`) with generous whitespace.
+- One readable typeface from the system font stack or self-hosted (no third-party font services, which keeps the Content-Security-Policy tight). Light theme first.
+- All colors live as design tokens (CSS variables) so the palette can be tuned in one place.
+## 7. Content-update design (daily updates)
+- Each Journey entry, and each editable section, is a clearly labeled HTML block with start/end comment markers and a copy-paste template.
+- `CONTENT.md` documents every editable thing: where it lives, the template, and a worked example.
+- A library of ready-made update prompts for Copilot/Cursor (add a role, edit a win, replace the PDF, change the positioning line) lives in `/prompts/update/`.
+- After every update, the automated checks run and must pass before deploy.
+## 7b. Skills and standing AI instructions
+- **Content Coach** (Claude skill): grills Nicholas, one question at a time, to turn his experience into outcome-focused content that recruiters want to click into and contact him about. Works from this brief.
+- **Update Site Content** (repo skill for Copilot/Cursor): asks for the latest content, collects every needed field, edits only the labeled blocks, runs the checks, updates the docs, and opens a pull request. Lives in the repo because only the coding tool can edit the site.
+- **Docs-currency rules** are not a skill. They are always-on instructions in `AGENTS.md` and `.github/copilot-instructions.md`, backed by the NFR-8 CI check and a PR template checklist. The drafts are in the project docs.
+## 8. Requirements and how each is tested
+Code tests run in GitHub Actions on every push and PR. AI tests are prompt files in `/ai-evals/`, run in CI via GitHub Models (advisory) and by hand in Copilot/Cursor.
+ 
+### Functional
+| ID | Requirement | Code test | AI test |
+|---|---|---|---|
+| FR-1 | Home shows name, positioning line, "View Journey" button, and email link in the first viewport | Playwright at 360 and 1280 widths | 30-second test |
+| FR-2 | Nav to Home, About, Journey on every page | Playwright link check | none |
+| FR-3 | Every Journey entry has org, location, title, years, and 1 to 2 wins | Structure check script on the labeled blocks | Outcome-focus review of the wins |
+| FR-4 | About shows photo with alt text and short bio | HTML check for alt text | Content check vs brief |
+| FR-5 | Email and LinkedIn links work | Link check; mailto present without plain-text address in source | none |
+| FR-6 | Resume PDF downloads and contains no phone number | File exists; extract PDF text and scan for phone pattern | none |
+| FR-7 | No phone number or street address anywhere on the site | Regex scan of all files | Diff review |
+| FR-8 | No placeholder text at launch | Scan for placeholder markers (warn now, fail at launch) | none |
+ 
+### Non-functional
+| ID | Requirement | Code test | AI test |
+|---|---|---|---|
+| NFR-1 | Responsive, 320 to 1920px, no horizontal scroll, tap targets at least 44px | Playwright viewports | Responsive judgment review |
+| NFR-2 | Maintainable: no framework or build step, one stylesheet, documented | File-structure check; README and CONTENT.md exist | Doc clarity review |
+| NFR-3 | Secure and safe: HTTPS, 2FA, no secrets, CSP meta, no unexpected external hosts | gitleaks, CSP presence, external-host scan, post-deploy HTTPS check | Security review of each diff |
+| NFR-4 | Traffic visibility private to Nicholas | Phase 7 (later) | none |
+| NFR-5 | Lighthouse 95+, WCAG 2.2 AA target, valid HTML, meta and Open Graph | Lighthouse CI, axe-core, HTML validator | Accessibility judgment review |
+| NFR-6 | Privacy: no cookies, no stored visitor data | Cookie and storage scan | none |
+| NFR-7 | Content is easy to update daily | Content checks pass after every update | Walk-through: can a fresh update prompt add a role correctly? |
+| NFR-8 | Supporting docs stay current with every change | CI "docs touched" check: fails when site or test files change without a docs change, unless the PR states `Docs impact: none, because ...` | Diff review: do the product brief, requirements table and CONTENT.md still match the change? |
+ 
+## 9. Risks and open items
+- **EY confidentiality:** confirm what can be published about client work.
+- **Phone number in the current resume:** use a separate web version without it.
+- **Email scraping:** personal address on a public page invites spam; obfuscation reduces but doesn't remove this. A custom-domain address is a later option.
+- **Public repo:** GitHub Pages on the free plan requires a public repository, so all files and history are public. Never commit a phone number, secrets, or a PDF containing them; deleting later does not remove them from history.
+- **Visitor IP logging:** GitHub's docs say it logs visitors' IP addresses for Pages sites for security purposes. Reflect this in the privacy note.
+- **GitHub Pages limits:** no custom HTTP headers, so security hardening is meta-tag CSP only.
+- **AI checks in CI:** GitHub Models is a preview feature with changing quotas; treat as advisory.
+- **Analytics (Phase 7):** verify Cloudflare's current free limits and that a login gate is available on the free plan before building.
+- **Open content:** positioning line wording, skills and awards placement, photo, accent shade, short story text.
+## 10. Done criteria
+No launch date. "Done" means: all functional and non-functional tests above pass, the 30-second test passes with 2 to 3 real people, placeholder text is gone, and the site is live at nicholasjmarshall.com over HTTPS.
+ 
