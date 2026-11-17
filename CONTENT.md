@@ -43,6 +43,35 @@ Copy this template into a page and update the text inside the block:
 
 Any text that is not confirmed from the project brief starts with the exact string `[PLACEHOLDER]` so it can be found quickly in a search. This applies especially to short bio copy, home callouts, skills, awards, and timeline outcomes.
 
+## Tests
+
+After any content change, run `npm test` from the repo root. The default suite runs the static HTML checks and the Playwright browser checks for layout, navigation, accessibility, and keyboard behavior.
+
+- If `tests/static/structure.test.mjs` fails, the page markup is out of spec (missing page title, missing CSP meta tag, wrong nav structure, or broken skip-link setup).
+- If `tests/static/content.test.mjs` fails, a content block is missing its required metadata or a Journey entry is not shaped correctly.
+- If `tests/static/privacy.test.mjs` fails, the repo contains a phone number or browser-storage usage that should not be published.
+- If `tests/static/external.test.mjs` fails, a page uses an unapproved external URL or an inline CSP-breaking attribute.
+- If `tests/static/links.test.mjs` fails, an internal page or asset link is broken.
+- If `tests/browser/*.spec.mjs` fails, the layout, tap targets, accessibility, or keyboard behavior regressed.
+
+The required markup for a Journey entry is:
+
+```html
+<!-- CONTENT:START id="journey-entry-template" -->
+<article class="timeline-item">
+  <div class="timeline-marker" aria-hidden="true"></div>
+  <div class="timeline-content">
+    <h2>Organization Name</h2>
+    <p class="meta-line">City, ST • Role • Start Year to End Year</p>
+    <ul class="list-block">
+      <li>[PLACEHOLDER] Outcome-focused result one.</li>
+      <li>[PLACEHOLDER] Outcome-focused result two.</li>
+    </ul>
+  </div>
+</article>
+<!-- CONTENT:END id="journey-entry-template" -->
+```
+
 ## Header and footer duplication
 
 The header and footer are duplicated on every page on purpose because this site has no build step. The markup is intentionally repeated to keep the pages simple, static, and easy to preview locally.

@@ -1,0 +1,17 @@
+{
+  "name": "nicholasjmarshall.com",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "npm run test:static && npm run test:browser",
+    "test:static": "npx html-validate index.html about.html journey.html --config .htmlvalidate.json && node --test tests/static/*.test.mjs",
+    "test:browser": "playwright test"
+  },
+  "devDependencies": {
+    "@axe-core/playwright": "4.14.0",
+    "@playwright/test": "1.65.1",
+    "cheerio": "1.2.0",
+    "html-validate": "11.21.1",
+    "http-server": "14.1.1"
+  }
+}

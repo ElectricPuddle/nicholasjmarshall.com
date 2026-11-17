@@ -70,7 +70,13 @@ a:focus-visible {
   top: 1rem;
 }
 
-:focus-visible {
+:focus-visible,
+a:focus,
+button:focus,
+input:focus,
+textarea:focus,
+select:focus,
+[tabindex]:focus {
   outline: 0.2rem solid var(--color-gold);
   outline-offset: 0.15rem;
 }
