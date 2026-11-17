@@ -35,6 +35,23 @@ Open `index.html` in a browser, or serve the repo locally with the Python built-
 
 ## Tests and deployment
 
-Tests will arrive in a later step for this project.
+Install the dev tooling and browser runtime once:
+
+```bash
+npm install
+npx playwright install chromium
+```
+
+Run the suite locally:
+
+```bash
+npm test
+```
+
+For launch checks, run the static checks in placeholder-fail mode:
+
+```bash
+LAUNCH=1 npm run test:static
+```
 
 Deployment is planned for GitHub Pages once the site content and docs are finalized.
