@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 1000" role="img" aria-labelledby="title description">
+  <title id="title">Profile picture placeholder</title>
+  <desc id="description">A dark abstract placeholder for Nicholas J. Marshall's profile photograph</desc>
+  <rect width="800" height="1000" fill="#111c2d"/>
+  <circle cx="400" cy="350" r="150" fill="#1c3558"/>
+  <path d="M120 1000c25-260 145-390 280-390s255 130 280 390H120z" fill="#1c3558"/>
+  <circle cx="400" cy="350" r="148" fill="none" stroke="#d6aa55" stroke-width="4" opacity=".55"/>
+  <text x="400" y="785" fill="#f4f5f7" font-family="Segoe UI, sans-serif" font-size="92" font-weight="700" letter-spacing="18" text-anchor="middle">NJM</text>
+</svg>
