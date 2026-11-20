@@ -45,11 +45,12 @@ Navigation on every page: Home, About, Journey.
 - Placeholder text is allowed during development, but must be flagged in the file and removed before launch.
 - Tone: warm but concise.
 ## 6. Visual direction
-Professional, clean, not bright. Blue and gold with a Notre Dame vibe, kept subtle so the site does not look like a Notre Dame site: no Notre Dame logo, monogram, name or imagery.
-- **Navy is the main color** for headings, links and key elements. Notre Dame's published blue is `#0c2340`; secondary blues `#143865` and `#1c4f8f`; light blue tints `#edf2f9` and `#e1e8f2` for backgrounds.
-- **Gold is an accent only**: thin rules, underlines, markers, hover states. Notre Dame's published metallic gold is `#ae9142` (darker `#8c7535`, brighter `#d39f10`). By my rough calculation, `#ae9142` on white is about 3:1 contrast, below the 4.5:1 needed for body text, so gold is never used for body text. The automated accessibility scan will confirm contrast.
-- **Backgrounds:** white or warm white (`#f8f4ec`) with generous whitespace.
-- One readable typeface from the system font stack or self-hosted (no third-party font services, which keeps the Content-Security-Policy tight). Light theme first.
+Professional, clean, dark, and understated. The redesigned identity uses deep navy surfaces, cool blue lighting, and a restrained warm gold accent rather than a bright or generic portfolio palette.
+- **Navy is the main color** for backgrounds and key surfaces: primary `#080d17`, secondary `#0d1523`, elevated `#111c2d`.
+- **Text**: near-white primary text (`#f4f5f7`) and cool-gray secondary text (`#b7c0ce`) for readable contrast.
+- **Gold is an accent only**: thin rules, markers, hover emphasis, and occasional serif headline treatment. It is never used as body text.
+- **Background effects:** subtle blue radial lighting, thin abstract arcs, and generous whitespace. No stock technology imagery or heavy shadows.
+- One readable system font stack with a restrained serif accent for selected headline words (no third-party font services).
 - All colors live as design tokens (CSS variables) so the palette can be tuned in one place.
 ## 7. Content-update design (daily updates)
 - Each Journey entry, and each editable section, is a clearly labeled HTML block with start/end comment markers and a copy-paste template.
